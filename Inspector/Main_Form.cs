@@ -246,7 +246,10 @@ namespace Inspector
         // Form Load
         private void Main_Form_Load(object sender, EventArgs e)
         {
-            
+            dateTimePicker_start.Format = DateTimePickerFormat.Custom;
+            dateTimePicker_start.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            dateTimePicker_end.Format = DateTimePickerFormat.Custom;
+            dateTimePicker_end.CustomFormat = "yyyy-MM-dd HH:mm:ss";
         }
 
         static int LineNumber([System.Runtime.CompilerServices.CallerLineNumber] int lineNumber = 0)
@@ -406,6 +409,8 @@ namespace Inspector
             panel2.BackColor = color_change;
             label_title.Text = "FY Inspector";
             Text = "FY Inspector";
+            
+            radioButton1.Checked = false;
         }
 
         private void radioButton_tf_CheckedChanged(object sender, EventArgs e)
@@ -416,6 +421,121 @@ namespace Inspector
             panel2.BackColor = color_change;
             label_title.Text = "TF Inspector";
             Text = "TF Inspector";
+            
+            radioButton1.Checked = false;
+        }
+
+        private void button_start_Click(object sender, EventArgs e)
+        {
+            if (!radioButton1.Checked)
+            {
+                if (!String.IsNullOrEmpty(richTextBox_players.Text.Trim()))
+                {
+                    if (dateTimePicker_start.Text != dateTimePicker_end.Text)
+                    {
+                        string start_datetime = dateTimePicker_start.Text;
+                        DateTime start = DateTime.Parse(start_datetime);
+
+                        string end_datetime = dateTimePicker_end.Text;
+                        DateTime end = DateTime.Parse(end_datetime);
+
+                        string result_start = start.ToString("yyyy-MM-dd");
+                        string result_end = end.ToString("yyyy-MM-dd");
+                        string result_start_time = start.ToString("HH:mm:ss");
+                        string result_end_time = end.ToString("HH:mm:ss");
+
+                        if (start < end)
+                        {
+                            if (button_start.Text.ToLower() != "stop see magic!")
+                            {
+                                ___Is_Visible(false);
+                                button_start.Text = "STOP SEE MAGIC!";
+                                __timer_count = 10;
+                                label_timer_count.Text = __timer_count.ToString();
+                                __timer_count = 9;
+                                label_timer_count.Visible = true;
+                                timer_start.Start();
+                            }
+                            else
+                            {
+                                ___Is_Visible(true);
+                                button_start.Text = "SEE MAGIC!";
+                                __timer_count = 10;
+                                label_timer_count.Visible = false;
+                                timer_start.Stop();
+                            }
+                        }
+                        else
+                        {
+                            MessageBox.Show("Start Time is greater than End Time, that's not possible.", __app, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Provide proper date range.", __app, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+                else
+                {
+                    richTextBox_players.Text = "";
+                    MessageBox.Show("Provide player/s.", __app, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    richTextBox_players.Focus();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Choose a brand.", __app, MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+        }
+
+        private void richTextBox_players_MouseEnter(object sender, EventArgs e)
+        {
+            toolTip.Show("New line as separator.", richTextBox_players);
+        }
+
+        private int __timer_count = 10;
+
+        private void timer_start_Tick(object sender, EventArgs e)
+        {
+            label_timer_count.Text = __timer_count--.ToString();
+            if (label_timer_count.Text == "-1")
+            {
+                panel_start.Visible = false;
+
+                __mainForm_handler = Application.OpenForms[0];
+                __mainForm_handler.Size = new Size(466, 468);
+
+                if (radioButton_fy.Checked)
+                {
+                    webBrowser.Navigate("http://cs.ying168.bet/account/login");
+                }
+                else if (radioButton_tf.Checked)
+                {
+                    webBrowser.Navigate("http://cs.tianfa86.org/account/login");
+                }
+
+                webBrowser.Visible = true;
+            }
+
+
+            if (label_timer_count.Text == "2")
+            {
+                button_start.Text = "PREPARING MAGIC!";
+            }
+        }
+
+        private void ___Is_Visible(bool bol)
+        {
+            radioButton_fy.Enabled = bol;
+            radioButton_tf.Enabled = bol;
+            richTextBox_players.Enabled = bol;
+            dateTimePicker_start.Enabled = bol;
+            dateTimePicker_end.Enabled = bol;
+        }
+
+        private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
         }
     }
 }

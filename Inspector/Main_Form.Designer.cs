@@ -46,12 +46,20 @@
             this.timer_auto_reject = new System.Windows.Forms.Timer(this.components);
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.panel_start = new System.Windows.Forms.Panel();
+            this.label_timer_count = new System.Windows.Forms.Label();
+            this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
+            this.label_start_fy = new System.Windows.Forms.Label();
+            this.label_end_fy = new System.Windows.Forms.Label();
             this.button_start = new System.Windows.Forms.Button();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
+            this.richTextBox_players = new System.Windows.Forms.RichTextBox();
             this.label_select_player = new System.Windows.Forms.Label();
             this.radioButton_tf = new System.Windows.Forms.RadioButton();
             this.radioButton_fy = new System.Windows.Forms.RadioButton();
             this.label_select_brand = new System.Windows.Forms.Label();
+            this.toolTip = new System.Windows.Forms.ToolTip(this.components);
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
+            this.timer_start = new System.Windows.Forms.Timer(this.components);
             this.panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_header)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_minimize)).BeginInit();
@@ -197,16 +205,66 @@
             // 
             // panel_start
             // 
+            this.panel_start.Controls.Add(this.label_timer_count);
+            this.panel_start.Controls.Add(this.dateTimePicker_end);
+            this.panel_start.Controls.Add(this.dateTimePicker_start);
+            this.panel_start.Controls.Add(this.label_start_fy);
+            this.panel_start.Controls.Add(this.label_end_fy);
             this.panel_start.Controls.Add(this.button_start);
-            this.panel_start.Controls.Add(this.richTextBox1);
+            this.panel_start.Controls.Add(this.richTextBox_players);
             this.panel_start.Controls.Add(this.label_select_player);
             this.panel_start.Controls.Add(this.radioButton_tf);
             this.panel_start.Controls.Add(this.radioButton_fy);
             this.panel_start.Controls.Add(this.label_select_brand);
             this.panel_start.Location = new System.Drawing.Point(12, 53);
             this.panel_start.Name = "panel_start";
-            this.panel_start.Size = new System.Drawing.Size(442, 178);
+            this.panel_start.Size = new System.Drawing.Size(443, 178);
             this.panel_start.TabIndex = 13;
+            // 
+            // label_timer_count
+            // 
+            this.label_timer_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_timer_count.Location = new System.Drawing.Point(266, 65);
+            this.label_timer_count.Name = "label_timer_count";
+            this.label_timer_count.Size = new System.Drawing.Size(173, 51);
+            this.label_timer_count.TabIndex = 15;
+            this.label_timer_count.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            // 
+            // dateTimePicker_end
+            // 
+            this.dateTimePicker_end.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_end.Location = new System.Drawing.Point(265, 41);
+            this.dateTimePicker_end.Name = "dateTimePicker_end";
+            this.dateTimePicker_end.Size = new System.Drawing.Size(175, 21);
+            this.dateTimePicker_end.TabIndex = 21;
+            // 
+            // dateTimePicker_start
+            // 
+            this.dateTimePicker_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.dateTimePicker_start.Location = new System.Drawing.Point(266, 14);
+            this.dateTimePicker_start.Name = "dateTimePicker_start";
+            this.dateTimePicker_start.Size = new System.Drawing.Size(174, 21);
+            this.dateTimePicker_start.TabIndex = 18;
+            // 
+            // label_start_fy
+            // 
+            this.label_start_fy.AutoSize = true;
+            this.label_start_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label_start_fy.Location = new System.Drawing.Point(179, 16);
+            this.label_start_fy.Name = "label_start_fy";
+            this.label_start_fy.Size = new System.Drawing.Size(86, 20);
+            this.label_start_fy.TabIndex = 19;
+            this.label_start_fy.Text = "Start Time:";
+            // 
+            // label_end_fy
+            // 
+            this.label_end_fy.AutoSize = true;
+            this.label_end_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
+            this.label_end_fy.Location = new System.Drawing.Point(179, 42);
+            this.label_end_fy.Name = "label_end_fy";
+            this.label_end_fy.Size = new System.Drawing.Size(80, 20);
+            this.label_end_fy.TabIndex = 20;
+            this.label_end_fy.Text = "End Time:";
             // 
             // button_start
             // 
@@ -214,27 +272,29 @@
             this.button_start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_start.ForeColor = System.Drawing.Color.Black;
-            this.button_start.Location = new System.Drawing.Point(313, 49);
+            this.button_start.Location = new System.Drawing.Point(265, 119);
             this.button_start.Name = "button_start";
-            this.button_start.Size = new System.Drawing.Size(118, 53);
+            this.button_start.Size = new System.Drawing.Size(174, 37);
             this.button_start.TabIndex = 17;
             this.button_start.Text = "SEE MAGIC!";
             this.button_start.UseVisualStyleBackColor = false;
+            this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
-            // richTextBox1
+            // richTextBox_players
             // 
-            this.richTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
-            this.richTextBox1.Location = new System.Drawing.Point(90, 51);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(134, 113);
-            this.richTextBox1.TabIndex = 16;
-            this.richTextBox1.Text = "";
+            this.richTextBox_players.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F);
+            this.richTextBox_players.Location = new System.Drawing.Point(70, 43);
+            this.richTextBox_players.Name = "richTextBox_players";
+            this.richTextBox_players.Size = new System.Drawing.Size(90, 113);
+            this.richTextBox_players.TabIndex = 16;
+            this.richTextBox_players.Text = "";
+            this.richTextBox_players.MouseEnter += new System.EventHandler(this.richTextBox_players_MouseEnter);
             // 
             // label_select_player
             // 
             this.label_select_player.AutoSize = true;
             this.label_select_player.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_select_player.Location = new System.Drawing.Point(13, 49);
+            this.label_select_player.Location = new System.Drawing.Point(1, 41);
             this.label_select_player.Name = "label_select_player";
             this.label_select_player.Size = new System.Drawing.Size(68, 20);
             this.label_select_player.TabIndex = 15;
@@ -244,7 +304,7 @@
             // 
             this.radioButton_tf.AutoSize = true;
             this.radioButton_tf.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton_tf.Location = new System.Drawing.Point(141, 16);
+            this.radioButton_tf.Location = new System.Drawing.Point(121, 16);
             this.radioButton_tf.Name = "radioButton_tf";
             this.radioButton_tf.Size = new System.Drawing.Size(39, 19);
             this.radioButton_tf.TabIndex = 14;
@@ -256,7 +316,7 @@
             // 
             this.radioButton_fy.AutoSize = true;
             this.radioButton_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.radioButton_fy.Location = new System.Drawing.Point(90, 16);
+            this.radioButton_fy.Location = new System.Drawing.Point(70, 16);
             this.radioButton_fy.Name = "radioButton_fy";
             this.radioButton_fy.Size = new System.Drawing.Size(39, 19);
             this.radioButton_fy.TabIndex = 13;
@@ -268,11 +328,30 @@
             // 
             this.label_select_brand.AutoSize = true;
             this.label_select_brand.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_select_brand.Location = new System.Drawing.Point(12, 14);
+            this.label_select_brand.Location = new System.Drawing.Point(0, 14);
             this.label_select_brand.Name = "label_select_brand";
             this.label_select_brand.Size = new System.Drawing.Size(56, 20);
             this.label_select_brand.TabIndex = 12;
             this.label_select_brand.Text = "Brand:";
+            // 
+            // webBrowser
+            // 
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.webBrowser.Location = new System.Drawing.Point(11, 51);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.ScriptErrorsSuppressed = true;
+            this.webBrowser.Size = new System.Drawing.Size(445, 402);
+            this.webBrowser.TabIndex = 14;
+            this.webBrowser.Visible = false;
+            this.webBrowser.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowser_DocumentCompleted);
+            // 
+            // timer_start
+            // 
+            this.timer_start.Interval = 1000;
+            this.timer_start.Tick += new System.EventHandler(this.timer_start_Tick);
             // 
             // Main_Form
             // 
@@ -285,6 +364,7 @@
             this.Controls.Add(this.panel_start);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.panel_header);
+            this.Controls.Add(this.webBrowser);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -328,10 +408,18 @@
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Panel panel_start;
         private System.Windows.Forms.Button button_start;
-        private System.Windows.Forms.RichTextBox richTextBox1;
+        private System.Windows.Forms.RichTextBox richTextBox_players;
         private System.Windows.Forms.Label label_select_player;
         private System.Windows.Forms.RadioButton radioButton_tf;
         private System.Windows.Forms.RadioButton radioButton_fy;
         private System.Windows.Forms.Label label_select_brand;
+        private System.Windows.Forms.ToolTip toolTip;
+        private System.Windows.Forms.WebBrowser webBrowser;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_end;
+        private System.Windows.Forms.DateTimePicker dateTimePicker_start;
+        private System.Windows.Forms.Label label_start_fy;
+        private System.Windows.Forms.Label label_end_fy;
+        private System.Windows.Forms.Timer timer_start;
+        private System.Windows.Forms.Label label_timer_count;
     }
 }
