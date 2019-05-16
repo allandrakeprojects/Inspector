@@ -32,12 +32,10 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             this.panel_header = new System.Windows.Forms.Panel();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.pictureBox_header = new System.Windows.Forms.PictureBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.label_title = new System.Windows.Forms.Label();
@@ -69,22 +67,22 @@
             this.timer_start = new System.Windows.Forms.Timer(this.components);
             this.panel_status = new System.Windows.Forms.Panel();
             this.dataGridView_player = new System.Windows.Forms.DataGridView();
+            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.player = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label_player = new System.Windows.Forms.Label();
             this.label_player_01 = new System.Windows.Forms.Label();
             this.pictureBox_loader = new System.Windows.Forms.PictureBox();
-            this.label_total_betrecord = new System.Windows.Forms.Label();
+            this.label_total_bet_record = new System.Windows.Forms.Label();
             this.label_gp_count = new System.Windows.Forms.Label();
             this.label_gp_count_01 = new System.Windows.Forms.Label();
             this.label_gp_name = new System.Windows.Forms.Label();
             this.label_gp_name_01 = new System.Windows.Forms.Label();
-            this.label_currentrecord = new System.Windows.Forms.Label();
-            this.label_page_count = new System.Windows.Forms.Label();
-            this.label_page_count_01 = new System.Windows.Forms.Label();
-            this.label_currentrecord_01 = new System.Windows.Forms.Label();
+            this.label_total_record = new System.Windows.Forms.Label();
+            this.label_page = new System.Windows.Forms.Label();
+            this.label_page_01 = new System.Windows.Forms.Label();
+            this.label_total_record_01 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.status = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.player = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.id = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_header)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_minimize)).BeginInit();
@@ -100,8 +98,6 @@
             // panel_header
             // 
             this.panel_header.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(90)))), ((int)(((byte)(101)))));
-            this.panel_header.Controls.Add(this.button2);
-            this.panel_header.Controls.Add(this.button1);
             this.panel_header.Controls.Add(this.pictureBox_header);
             this.panel_header.Controls.Add(this.panel1);
             this.panel_header.Controls.Add(this.label_title);
@@ -110,29 +106,9 @@
             this.panel_header.Dock = System.Windows.Forms.DockStyle.Top;
             this.panel_header.Location = new System.Drawing.Point(0, 0);
             this.panel_header.Name = "panel_header";
-            this.panel_header.Size = new System.Drawing.Size(923, 45);
+            this.panel_header.Size = new System.Drawing.Size(466, 45);
             this.panel_header.TabIndex = 1;
             this.panel_header.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_header_MouseDown);
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(315, 10);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
-            this.button2.TabIndex = 64;
-            this.button2.Text = "button2";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(234, 12);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 3;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // pictureBox_header
             // 
@@ -209,7 +185,7 @@
             // 
             this.panel_landing.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(90)))), ((int)(((byte)(101)))));
             this.panel_landing.Controls.Add(this.pictureBox_landing);
-            this.panel_landing.Location = new System.Drawing.Point(29, 476);
+            this.panel_landing.Location = new System.Drawing.Point(0, 10);
             this.panel_landing.Name = "panel_landing";
             this.panel_landing.Size = new System.Drawing.Size(468, 457);
             this.panel_landing.TabIndex = 0;
@@ -241,10 +217,12 @@
             // radioButton1
             // 
             this.radioButton1.AutoSize = true;
+            this.radioButton1.Checked = true;
             this.radioButton1.Location = new System.Drawing.Point(-100, 203);
             this.radioButton1.Name = "radioButton1";
             this.radioButton1.Size = new System.Drawing.Size(85, 17);
             this.radioButton1.TabIndex = 12;
+            this.radioButton1.TabStop = true;
             this.radioButton1.Text = "radioButton1";
             this.radioButton1.UseVisualStyleBackColor = true;
             // 
@@ -332,7 +310,7 @@
             this.richTextBox_players.Name = "richTextBox_players";
             this.richTextBox_players.Size = new System.Drawing.Size(90, 113);
             this.richTextBox_players.TabIndex = 16;
-            this.richTextBox_players.Text = "";
+            this.richTextBox_players.Text = "yugaoquan11\nlhk139\nasdasdsa\ndfdfd\n";
             this.richTextBox_players.MouseEnter += new System.EventHandler(this.richTextBox_players_MouseEnter);
             // 
             // label_select_player
@@ -360,13 +338,11 @@
             // radioButton_fy
             // 
             this.radioButton_fy.AutoSize = true;
-            this.radioButton_fy.Checked = true;
             this.radioButton_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.radioButton_fy.Location = new System.Drawing.Point(70, 16);
             this.radioButton_fy.Name = "radioButton_fy";
             this.radioButton_fy.Size = new System.Drawing.Size(39, 19);
             this.radioButton_fy.TabIndex = 13;
-            this.radioButton_fy.TabStop = true;
             this.radioButton_fy.Text = "FY";
             this.radioButton_fy.UseVisualStyleBackColor = true;
             this.radioButton_fy.CheckedChanged += new System.EventHandler(this.radioButton_fy_CheckedChanged);
@@ -403,19 +379,20 @@
             this.panel_status.Controls.Add(this.label_player);
             this.panel_status.Controls.Add(this.label_player_01);
             this.panel_status.Controls.Add(this.pictureBox_loader);
-            this.panel_status.Controls.Add(this.label_total_betrecord);
+            this.panel_status.Controls.Add(this.label_total_bet_record);
             this.panel_status.Controls.Add(this.label_gp_count);
             this.panel_status.Controls.Add(this.label_gp_count_01);
             this.panel_status.Controls.Add(this.label_gp_name);
             this.panel_status.Controls.Add(this.label_gp_name_01);
-            this.panel_status.Controls.Add(this.label_currentrecord);
-            this.panel_status.Controls.Add(this.label_page_count);
-            this.panel_status.Controls.Add(this.label_page_count_01);
-            this.panel_status.Controls.Add(this.label_currentrecord_01);
-            this.panel_status.Location = new System.Drawing.Point(462, 53);
+            this.panel_status.Controls.Add(this.label_total_record);
+            this.panel_status.Controls.Add(this.label_page);
+            this.panel_status.Controls.Add(this.label_page_01);
+            this.panel_status.Controls.Add(this.label_total_record_01);
+            this.panel_status.Location = new System.Drawing.Point(9, 53);
             this.panel_status.Name = "panel_status";
             this.panel_status.Size = new System.Drawing.Size(449, 403);
             this.panel_status.TabIndex = 51;
+            this.panel_status.Visible = false;
             // 
             // dataGridView_player
             // 
@@ -465,6 +442,32 @@
             this.dataGridView_player.Size = new System.Drawing.Size(339, 105);
             this.dataGridView_player.TabIndex = 64;
             // 
+            // id
+            // 
+            this.id.HeaderText = "ID";
+            this.id.Name = "id";
+            this.id.ReadOnly = true;
+            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.id.Visible = false;
+            // 
+            // player
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.player.DefaultCellStyle = dataGridViewCellStyle2;
+            this.player.HeaderText = "Player";
+            this.player.Name = "player";
+            this.player.ReadOnly = true;
+            this.player.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // status
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.status.DefaultCellStyle = dataGridViewCellStyle3;
+            this.status.HeaderText = "Status";
+            this.status.Name = "status";
+            this.status.ReadOnly = true;
+            this.status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
             // label_player
             // 
             this.label_player.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -495,14 +498,14 @@
             this.pictureBox_loader.TabIndex = 60;
             this.pictureBox_loader.TabStop = false;
             // 
-            // label_total_betrecord
+            // label_total_bet_record
             // 
-            this.label_total_betrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_total_betrecord.Location = new System.Drawing.Point(233, 242);
-            this.label_total_betrecord.Name = "label_total_betrecord";
-            this.label_total_betrecord.Size = new System.Drawing.Size(163, 18);
-            this.label_total_betrecord.TabIndex = 59;
-            this.label_total_betrecord.Text = "-";
+            this.label_total_bet_record.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_total_bet_record.Location = new System.Drawing.Point(233, 242);
+            this.label_total_bet_record.Name = "label_total_bet_record";
+            this.label_total_bet_record.Size = new System.Drawing.Size(163, 18);
+            this.label_total_bet_record.TabIndex = 59;
+            this.label_total_bet_record.Text = "-";
             // 
             // label_gp_count
             // 
@@ -542,43 +545,43 @@
             this.label_gp_name_01.TabIndex = 56;
             this.label_gp_name_01.Text = "GP Name:";
             // 
-            // label_currentrecord
+            // label_total_record
             // 
-            this.label_currentrecord.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_currentrecord.Location = new System.Drawing.Point(233, 150);
-            this.label_currentrecord.Name = "label_currentrecord";
-            this.label_currentrecord.Size = new System.Drawing.Size(163, 18);
-            this.label_currentrecord.TabIndex = 51;
-            this.label_currentrecord.Text = "-";
+            this.label_total_record.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_total_record.Location = new System.Drawing.Point(233, 150);
+            this.label_total_record.Name = "label_total_record";
+            this.label_total_record.Size = new System.Drawing.Size(163, 18);
+            this.label_total_record.TabIndex = 51;
+            this.label_total_record.Text = "-";
             // 
-            // label_page_count
+            // label_page
             // 
-            this.label_page_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_page_count.Location = new System.Drawing.Point(234, 120);
-            this.label_page_count.Name = "label_page_count";
-            this.label_page_count.Size = new System.Drawing.Size(162, 18);
-            this.label_page_count.TabIndex = 52;
-            this.label_page_count.Text = "-";
+            this.label_page.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_page.Location = new System.Drawing.Point(234, 120);
+            this.label_page.Name = "label_page";
+            this.label_page.Size = new System.Drawing.Size(162, 18);
+            this.label_page.TabIndex = 52;
+            this.label_page.Text = "-";
             // 
-            // label_page_count_01
+            // label_page_01
             // 
-            this.label_page_count_01.AutoSize = true;
-            this.label_page_count_01.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_page_count_01.Location = new System.Drawing.Point(173, 120);
-            this.label_page_count_01.Name = "label_page_count_01";
-            this.label_page_count_01.Size = new System.Drawing.Size(46, 18);
-            this.label_page_count_01.TabIndex = 54;
-            this.label_page_count_01.Text = "Page:";
+            this.label_page_01.AutoSize = true;
+            this.label_page_01.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_page_01.Location = new System.Drawing.Point(173, 120);
+            this.label_page_01.Name = "label_page_01";
+            this.label_page_01.Size = new System.Drawing.Size(46, 18);
+            this.label_page_01.TabIndex = 54;
+            this.label_page_01.Text = "Page:";
             // 
-            // label_currentrecord_01
+            // label_total_record_01
             // 
-            this.label_currentrecord_01.AutoSize = true;
-            this.label_currentrecord_01.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_currentrecord_01.Location = new System.Drawing.Point(121, 150);
-            this.label_currentrecord_01.Name = "label_currentrecord_01";
-            this.label_currentrecord_01.Size = new System.Drawing.Size(98, 18);
-            this.label_currentrecord_01.TabIndex = 53;
-            this.label_currentrecord_01.Text = "Total Record:";
+            this.label_total_record_01.AutoSize = true;
+            this.label_total_record_01.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_total_record_01.Location = new System.Drawing.Point(121, 150);
+            this.label_total_record_01.Name = "label_total_record_01";
+            this.label_total_record_01.Size = new System.Drawing.Size(98, 18);
+            this.label_total_record_01.TabIndex = 53;
+            this.label_total_record_01.Text = "Total Record:";
             // 
             // imageList1
             // 
@@ -586,45 +589,19 @@
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // status
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.status.DefaultCellStyle = dataGridViewCellStyle3;
-            this.status.HeaderText = "Status";
-            this.status.Name = "status";
-            this.status.ReadOnly = true;
-            this.status.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // player
-            // 
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.player.DefaultCellStyle = dataGridViewCellStyle2;
-            this.player.HeaderText = "Player";
-            this.player.Name = "player";
-            this.player.ReadOnly = true;
-            this.player.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            // 
-            // id
-            // 
-            this.id.HeaderText = "ID";
-            this.id.Name = "id";
-            this.id.ReadOnly = true;
-            this.id.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.id.Visible = false;
-            // 
             // Main_Form
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(51)))), ((int)(((byte)(51)))), ((int)(((byte)(51)))));
-            this.ClientSize = new System.Drawing.Size(923, 468);
-            this.Controls.Add(this.panel_status);
+            this.ClientSize = new System.Drawing.Size(466, 468);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel_landing);
             this.Controls.Add(this.panel_start);
             this.Controls.Add(this.radioButton1);
             this.Controls.Add(this.panel_header);
             this.Controls.Add(this.webBrowser);
+            this.Controls.Add(this.panel_status);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -685,20 +662,18 @@
         private System.Windows.Forms.Label label_timer_count;
         private System.Windows.Forms.Panel panel_status;
         private System.Windows.Forms.PictureBox pictureBox_loader;
-        private System.Windows.Forms.Label label_total_betrecord;
+        private System.Windows.Forms.Label label_total_bet_record;
         private System.Windows.Forms.Label label_gp_count;
         private System.Windows.Forms.Label label_gp_count_01;
         private System.Windows.Forms.Label label_gp_name;
         private System.Windows.Forms.Label label_gp_name_01;
-        private System.Windows.Forms.Label label_currentrecord;
-        private System.Windows.Forms.Label label_page_count;
-        private System.Windows.Forms.Label label_page_count_01;
-        private System.Windows.Forms.Label label_currentrecord_01;
+        private System.Windows.Forms.Label label_total_record;
+        private System.Windows.Forms.Label label_page;
+        private System.Windows.Forms.Label label_page_01;
+        private System.Windows.Forms.Label label_total_record_01;
         private System.Windows.Forms.Label label_player;
         private System.Windows.Forms.Label label_player_01;
         private System.Windows.Forms.ImageList imageList1;
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.DataGridView dataGridView_player;
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn player;
