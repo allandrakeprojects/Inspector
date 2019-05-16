@@ -1,19 +1,32 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System;
+using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Runtime.InteropServices;
 using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace Inspector
 {
     public partial class Main_Form : Form
     {
-        private bool __isClose;
+        private bool __is_close;
         private int __send = 0;
+        private int __secho = 0;
         private string __app = "Inspector";
+        private string __brand_code = "";
+        private string __la = "";
+        private string __player = "";
+        List<String> __gp = new List<String>();
         Form __mainForm_handler;
 
         // Drag Header to Move
@@ -160,11 +173,7 @@ namespace Inspector
         }
         private void pictureBox_loader_MouseDown(object sender, MouseEventArgs e)
         {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture();
-                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
-            }
+
         }
         private void label_brand_MouseDown(object sender, MouseEventArgs e)
         {
@@ -198,7 +207,7 @@ namespace Inspector
             DialogResult dr = MessageBox.Show("Exit the program?", __app, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
             if (dr == DialogResult.Yes)
             {
-                __isClose = true;
+                __is_close = true;
                 Environment.Exit(0);
             }
         }
@@ -213,7 +222,7 @@ namespace Inspector
         DialogResult _dr;
         private void Main_Form_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (!__isClose)
+            if (!__is_close)
             {
                 timer_dialog.Start();
                 _dr = MessageBox.Show("Exit the program?", __app, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
@@ -247,7 +256,7 @@ namespace Inspector
         private void Main_Form_Load(object sender, EventArgs e)
         {
             dateTimePicker_start.Format = DateTimePickerFormat.Custom;
-            dateTimePicker_start.CustomFormat = "yyyy-MM-dd HH:mm:ss";
+            dateTimePicker_start.CustomFormat = "yyyy-04-dd HH:mm:ss";
             dateTimePicker_end.Format = DateTimePickerFormat.Custom;
             dateTimePicker_end.CustomFormat = "yyyy-MM-dd HH:mm:ss";
         }
@@ -262,8 +271,8 @@ namespace Inspector
             panel_landing.Visible = false;
             timer_landing.Stop();
             
-            __mainForm_handler = Application.OpenForms[0];
-            __mainForm_handler.Size = new Size(466, 249);
+            //__mainForm_handler = Application.OpenForms[0];
+            //__mainForm_handler.Size = new Size(466, 249);
         }
 
         private void SendMyBot(string message)
@@ -310,7 +319,7 @@ namespace Inspector
                             sb.Append(line);
                     }
 
-                    __isClose = false;
+                    __is_close = false;
                     Environment.Exit(0);
                 }
                 else
@@ -320,7 +329,7 @@ namespace Inspector
                     {
                         SendMyBot(err.ToString());
 
-                        __isClose = false;
+                        __is_close = false;
                         Environment.Exit(0);
                     }
                     else
@@ -332,46 +341,46 @@ namespace Inspector
             }
         }
 
-        //private void SendReportsTeam(string message)
-        //{
-        //    try
-        //    {
-        //        string datetime = DateTime.Now.ToString("dd MMM HH:mm:ss");
-        //        string urlString = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}";
-        //        string apiToken = "762890741:AAFwjSml3OgWrN07G_41YgIIzFAyxYLGE8Q";
-        //        string chatId = "@cronos_data_reports_team";
-        //        string text = "Brand:%20-----" + __brand_code + "-----%0ATime:%20[" + datetime + "]%0AMessage:%20" + message + "";
-        //        urlString = String.Format(urlString, apiToken, chatId, text);
-        //        WebRequest request = WebRequest.Create(urlString);
-        //        Stream rs = request.GetResponse().GetResponseStream();
-        //        StreamReader reader = new StreamReader(rs);
-        //        string line = "";
-        //        StringBuilder sb = new StringBuilder();
-        //        while (line != null)
-        //        {
-        //            line = reader.ReadLine();
-        //            if (line != null)
-        //                sb.Append(line);
-        //        }
-        //    }
-        //    catch (Exception err)
-        //    {
-        //        __send++;
-        //        if (__send == 5)
-        //        {
-        //            SendITSupport("There's a problem to the server, please re-open the application.");
-        //            SendMyBot(err.ToString());
+        private void SendReportsTeam(string message)
+        {
+            try
+            {
+                string datetime = DateTime.Now.ToString("dd MMM HH:mm:ss");
+                string urlString = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}";
+                string apiToken = "762890741:AAFwjSml3OgWrN07G_41YgIIzFAyxYLGE8Q";
+                string chatId = "@cronos_data_reports_team";
+                string text = "Brand:%20-----" + __brand_code + "-----%0ATime:%20[" + datetime + "]%0AMessage:%20" + message + "";
+                urlString = String.Format(urlString, apiToken, chatId, text);
+                WebRequest request = WebRequest.Create(urlString);
+                Stream rs = request.GetResponse().GetResponseStream();
+                StreamReader reader = new StreamReader(rs);
+                string line = "";
+                StringBuilder sb = new StringBuilder();
+                while (line != null)
+                {
+                    line = reader.ReadLine();
+                    if (line != null)
+                        sb.Append(line);
+                }
+            }
+            catch (Exception err)
+            {
+                __send++;
+                if (__send == 5)
+                {
+                    SendReportsTeam("There's a problem to the server, please re-open the application.");
+                    SendMyBot(err.ToString());
 
-        //            isClose = false;
-        //            Environment.Exit(0);
-        //        }
-        //        else
-        //        {
-        //            ___WaitNSeconds(10);
-        //            SendReportsTeam(message);
-        //        }
-        //    }
-        //}
+                    __is_close = false;
+                    Environment.Exit(0);
+                }
+                else
+                {
+                    ___WaitNSeconds(10);
+                    SendReportsTeam(message);
+                }
+            }
+        }
 
         private void timer_flush_memory_Tick(object sender, EventArgs e)
         {
@@ -409,7 +418,8 @@ namespace Inspector
             panel2.BackColor = color_change;
             label_title.Text = "FY Inspector";
             Text = "FY Inspector";
-            
+            __brand_code = "FY";
+
             radioButton1.Checked = false;
         }
 
@@ -421,12 +431,15 @@ namespace Inspector
             panel2.BackColor = color_change;
             label_title.Text = "TF Inspector";
             Text = "TF Inspector";
-            
+            __brand_code = "TF";
+
             radioButton1.Checked = false;
         }
 
         private void button_start_Click(object sender, EventArgs e)
         {
+            richTextBox_players.Lines = richTextBox_players.Lines.Distinct().ToArray();
+
             if (!radioButton1.Checked)
             {
                 if (!String.IsNullOrEmpty(richTextBox_players.Text.Trim()))
@@ -446,7 +459,7 @@ namespace Inspector
 
                         if (start < end)
                         {
-                            if (button_start.Text.ToLower() != "stop see magic!")
+                            if (button_start.Text.ToLower() != "stop see magic!" && button_start.Text.ToLower() != "preparing magic!")
                             {
                                 ___Is_Visible(false);
                                 button_start.Text = "STOP SEE MAGIC!";
@@ -502,8 +515,8 @@ namespace Inspector
             {
                 panel_start.Visible = false;
 
-                __mainForm_handler = Application.OpenForms[0];
-                __mainForm_handler.Size = new Size(466, 468);
+                //__mainForm_handler = Application.OpenForms[0];
+                //__mainForm_handler.Size = new Size(466, 468);
 
                 if (radioButton_fy.Checked)
                 {
@@ -533,9 +546,288 @@ namespace Inspector
             dateTimePicker_end.Enabled = bol;
         }
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i <= richTextBox_players.Lines.Count() - 1; i++)
+            {
+                if (!String.IsNullOrEmpty(richTextBox_players.Lines[i]))
+                {
+                    if (i == 0)
+                    {
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Ongoing");
+                    }
+                    else
+                    {
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Pending");
+                    }
+
+                    __player += i + "|" + richTextBox_players.Lines[i] + "*|*";
+                }
+            }
+            
+            dataGridView_player.Sort(dataGridView_player.Columns["id"], ListSortDirection.Ascending);
+
+            //dataGridView_player.DefaultCellStyle.SelectionBackColor = dataGridView_player.DefaultCellStyle.BackColor;
+            //dataGridView_player.DefaultCellStyle.SelectionForeColor = dataGridView_player.DefaultCellStyle.ForeColor;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            //string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+            //foreach (string _player in _players)
+            //{
+            //    if (!String.IsNullOrEmpty(_player))
+            //    {
+            //        string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+            //        if (_players_inner[1] == "asd123")
+            //        {
+            //            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
+            //            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
+            //        }
+            //    }
+            //}
+        }
+
+        private void ___FillUp()
+        {
+            for (int i = 0; i <= richTextBox_players.Lines.Count() - 1; i++)
+            {
+                if (!String.IsNullOrEmpty(richTextBox_players.Lines[i]))
+                {
+                    if (i == 0)
+                    {
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Ongoing");
+                    }
+                    else
+                    {
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Pending");
+                    }
+
+                    __player += i + "|" + richTextBox_players.Lines[i] + "*|*";
+                }
+            }
+
+            dataGridView_player.Sort(dataGridView_player.Columns["id"], ListSortDirection.Ascending);
+        }
+
         private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
         {
+            if (webBrowser.ReadyState == WebBrowserReadyState.Complete)
+            {
+                if (e.Url == webBrowser.Url)
+                {
+                    try
+                    {
+                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/account/login"))
+                        {
+                            webBrowser.Visible = true;
+                            webBrowser.BringToFront();
+                            webBrowser.Document.Window.ScrollTo(0, 180);
+                            webBrowser.Document.GetElementById("csname").SetAttribute("value", "fycronos2");
+                            webBrowser.Document.GetElementById("cspwd").SetAttribute("value", "cronos12345");
+                            webBrowser.Document.GetElementById("la").Enabled = false;
+                            __la = webBrowser.Document.GetElementById("la").GetAttribute("value");
 
+                            if (__la == "")
+                            {
+                                SendReportsTeam("There's a problem to the server, please re-open the application.");
+
+                                __is_close = false;
+                                Environment.Exit(0);
+                            }
+                        }
+
+                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/player/list") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/site/index") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/player/online") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/message/platform"))
+                        {
+                            ___FillUp();
+
+                            webBrowser.Visible = false;
+                            webBrowser.Navigate("http://cs.ying168.bet/flow/wagered2");
+                        }
+
+                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/flow/wagered2"))
+                        {
+                            __gp.Clear();
+                            HtmlElement selectF8 = webBrowser.Document.GetElementById("gpid");
+                            foreach (HtmlElement item in selectF8.Children)
+                            {
+                                if (item.InnerText != "全选")
+                                {
+                                    __gp.Add(item.GetAttribute("value") + "*|*" + item.InnerText);
+                                }
+                            }
+
+                            // Process Starts Here
+                            ___PROCESSAsync();
+                        }
+                    }
+                    catch (Exception err)
+                    {
+
+                    }
+                }
+            }
+        }
+
+        private async void ___PROCESSAsync()
+        {
+            string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+            foreach (string _player in _players)
+            {
+                if (!String.IsNullOrEmpty(_player))
+                {
+                    string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                    await ___PROCESS_ifexistsAsync(_players_inner[1]);
+                }
+            }
+
+            MessageBox.Show("Done!");
+        }
+
+        private async Task ___PROCESS_ifexistsAsync(string player)
+        {
+            var cookie = Cookie.GetCookieInternal(webBrowser.Url, false);
+            WebClient wc = new WebClient();
+            wc.Headers.Add("Cookie", cookie);
+            wc.Encoding = Encoding.UTF8;
+            wc.Headers.Add("Content-Type", "application/x-www-form-urlencoded");
+            var reqparm = new NameValueCollection
+            {
+                {"s_btype", ""},
+                {"skip", "0"},
+                {"s_type", "1"},
+                {"s_keyword", player},
+                {"s_searchexact", "0"},
+                {"s_type5", "10"},
+                {"s_keyword5", ""},
+                {"s_type3", "3"},
+                {"s_keyword3", ""},
+                {"groupid", "0"},
+                {"s_playercurrency", "ALL"},
+                {"s_type2", "4"},
+                {"s_keyword2", "0"},
+                {"s_searchexact2", "0"},
+                {"s_type6", "14"},
+                {"s_keyword6", ""},
+                {"s_type4", "17"},
+                {"s_keyword4", ""},
+                {"s_status_search", ""},
+                {"regday_start", ""},
+                {"regday_end", ""},
+                {"logintime_start", ""},
+                {"logintime_end", ""},
+                {"min_balance", ""},
+                {"max_balance", ""},
+                {"min_c_income", ""},
+                {"max_c_income", ""},
+                {"excludeLockID", "{}"},
+                {"data[0][name]", "sEcho"},
+                {"data[0][value]", __secho++.ToString()},
+                {"data[1][name]", "iColumns"},
+                {"data[1][value]", "18"},
+                {"data[2][name]", "sColumns"},
+                {"data[2][value]", ",,,,,,,balance,comwl,,,,,,,,,"},
+                {"data[3][name]", "iDisplayStart"},
+                {"data[3][value]", "0"},
+                {"data[4][name]", "iDisplayLength"},
+                {"data[4][value]", "100"}
+            };
+
+            byte[] result = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/player/listAjax2", "POST", reqparm);
+            string responsebody = "";
+            if (__la == "en")
+            {
+                responsebody = Encoding.UTF8.GetString(result).Remove(0, 1);
+            }
+            else
+            {
+                responsebody = Encoding.UTF8.GetString(result);
+            }
+            var deserialize_object = JsonConvert.DeserializeObject(responsebody);
+            JObject jo = JObject.Parse(deserialize_object.ToString());
+            JToken jt_total = jo.SelectToken("$.iTotalRecords");
+            if (jt_total.ToString() != "0")
+            {
+                bool _is_found = false;
+                for (int i = 0; i < Convert.ToInt32(jt_total) ; i++)
+                {
+                    JToken jt_detect = jo.SelectToken("$.aaData[" + i + "][0]");
+                    string username = Regex.Match(jt_detect.ToString(), "username=\\\"(.*?)\\\"").Groups[1].Value;
+                    if (username == player)
+                    {
+                        _is_found = true;
+                        string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                        foreach (string _player in _players)
+                        {
+                            if (!String.IsNullOrEmpty(_player))
+                            {
+                                string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                                if (_players_inner[1] == player)
+                                {
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Ongoing";
+                                    break;
+                                }
+                            }
+                        }
+                        break;
+                    }
+                }
+
+                if (!_is_found)
+                {
+                    string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                    foreach (string _player in _players)
+                    {
+                        if (!String.IsNullOrEmpty(_player))
+                        {
+                            string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                            if (_players_inner[1] == player)
+                            {
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                try
+                                {
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
+                                }
+                                catch (Exception err)
+                                {
+                                    // leave blank
+                                }
+
+                                break;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                foreach (string _player in _players)
+                {
+                    if (!String.IsNullOrEmpty(_player))
+                    {
+                        string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                        if (_players_inner[1] == player)
+                        {
+                            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
+                            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                            try
+                            {
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
+                            }
+                            catch (Exception err)
+                            {
+                                // leave blank
+                            }
+
+                            break;
+                        }
+                    }
+                }
+            }
         }
     }
 }
