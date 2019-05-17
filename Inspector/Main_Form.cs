@@ -189,7 +189,11 @@ namespace Inspector
         }
         private void pictureBox_loader_MouseDown(object sender, MouseEventArgs e)
         {
-
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
         }
         private void label_brand_MouseDown(object sender, MouseEventArgs e)
         {
@@ -248,6 +252,22 @@ namespace Inspector
             }
         }
         private void label_finish_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_player_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_player_01_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -343,7 +363,31 @@ namespace Inspector
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+        private void label_start_time_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_end_time_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
         private void label_timer_count_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void pictureBox_header_MouseDown(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
             {
@@ -821,7 +865,14 @@ namespace Inspector
                     if (!String.IsNullOrEmpty(_player))
                     {
                         string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
-                        label_player.Text = _players_inner[1];
+                        if (richTextBox_players.Lines.Count() == 1)
+                        {
+                            label_player.Text = _players_inner[1];
+                        }
+                        else
+                        {
+                            label_player.Text = _players_inner[1] + " (" + (Convert.ToInt32(_players_inner[0]) + 1) + " of " + richTextBox_players.Lines.Count() + ")";
+                        }
                         await ___PROCESS_ifexistsAsync(_players_inner[1]);
                     }
                 }
@@ -889,15 +940,7 @@ namespace Inspector
             };
 
             byte[] result = await wc.UploadValuesTaskAsync(__url + "/player/listAjax2", "POST", reqparm);
-            string responsebody = "";
-            if (__la == "en")
-            {
-                responsebody = Encoding.UTF8.GetString(result).Remove(0, 1);
-            }
-            else
-            {
-                responsebody = Encoding.UTF8.GetString(result);
-            }
+            string responsebody = Encoding.UTF8.GetString(result);
             var deserialize_object = JsonConvert.DeserializeObject(responsebody);
             JObject jo = JObject.Parse(deserialize_object.ToString());
             JToken jt_total = jo.SelectToken("$.iTotalRecords");
