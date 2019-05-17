@@ -37,7 +37,6 @@ namespace Inspector
         private string __last_brand_code = "";
         private string __la = "";
         private string __player = "";
-        private string __player_status = "";
         private string __vip = "";
         List<String> __gp = new List<String>();
         StringBuilder __DATA = new StringBuilder();
@@ -967,9 +966,7 @@ namespace Inspector
 
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-
-                                __player_status += player + " - Not Found\n";
-
+                                
                                 try
                                 {
                                     dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
@@ -1001,9 +998,7 @@ namespace Inspector
 
                             dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                             dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-
-                            __player_status += player + " - Not Found\n";
-
+                            
                             try
                             {
                                 dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
@@ -1152,8 +1147,7 @@ namespace Inspector
 
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-
-                                    __player_status += player + " - OK\n";
+                                    
                                     break;
                                 }
                             }
@@ -1174,8 +1168,7 @@ namespace Inspector
 
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-
-                                    __player_status += player + " - No Data\n";
+                                    
                                     break;
                                 }
                             }
@@ -1394,8 +1387,7 @@ namespace Inspector
 
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-
-                                __player_status += player + " - OK\n";
+                                
                                 break;
                             }
                         }
@@ -1416,8 +1408,7 @@ namespace Inspector
 
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-
-                                __player_status += player + " - No Data\n";
+                                
                                 break;
                             }
                         }
@@ -1625,7 +1616,6 @@ namespace Inspector
             panel_finish.Visible = false;
             panel_start.Visible = true;
             ___Is_Visible(true);
-            __player_status = "";
             ___PROCESSS_clear();
         }
 
