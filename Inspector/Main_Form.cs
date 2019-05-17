@@ -22,6 +22,7 @@ namespace Inspector
     public partial class Main_Form : Form
     {
         private bool __is_close;
+        private bool __maximize;
         private int __total_page;
         private int __current_count = 1;
         private int __send = 0;
@@ -31,9 +32,12 @@ namespace Inspector
         private double __length = 5000;
         private double __total_record;
         private string __app = "Inspector";
+        private string __url = "";
         private string __brand_code = "";
+        private string __last_brand_code = "";
         private string __la = "";
         private string __player = "";
+        private string __player_status = "";
         private string __vip = "";
         List<String> __gp = new List<String>();
         StringBuilder __DATA = new StringBuilder();
@@ -212,6 +216,142 @@ namespace Inspector
                 SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
             }
         }
+        private void Main_Form_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void panel_finish_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void panel_start_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void panel_status_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_finish_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_gp_count_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_gp_count_01_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_gp_name_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_gp_name_01_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_page_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_page_01_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_total_record_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_total_record_01_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_total_bet_record_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_select_brand_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_select_player_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
+        private void label_timer_count_MouseDown(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(Handle, WM_NCLBUTTONDOWN, HT_CAPTION, 0);
+            }
+        }
         // ----- Drag to Move
 
         // Click Close
@@ -269,7 +409,7 @@ namespace Inspector
         private void Main_Form_Load(object sender, EventArgs e)
         {
             dateTimePicker_start.Format = DateTimePickerFormat.Custom;
-            dateTimePicker_start.CustomFormat = "yyyy-04-dd HH:mm:ss";
+            dateTimePicker_start.CustomFormat = "yyyy-MM-dd HH:mm:ss";
             dateTimePicker_end.Format = DateTimePickerFormat.Custom;
             dateTimePicker_end.CustomFormat = "yyyy-MM-dd HH:mm:ss";
         }
@@ -283,9 +423,8 @@ namespace Inspector
         {
             panel_landing.Visible = false;
             timer_landing.Stop();
-
-            __mainForm_handler = Application.OpenForms[0];
-            __mainForm_handler.Size = new Size(466, 249);
+            timer_size.Start();
+            __maximize = false;
         }
 
         private void SendMyBot(string message)
@@ -452,6 +591,7 @@ namespace Inspector
         private void button_start_Click(object sender, EventArgs e)
         {
             richTextBox_players.Lines = richTextBox_players.Lines.Distinct().ToArray();
+            richTextBox_players.Text = Regex.Replace(richTextBox_players.Text, @"^\s*$(\n|\r|\r\n)", "", RegexOptions.Multiline);
 
             if (!radioButton1.Checked)
             {
@@ -472,10 +612,10 @@ namespace Inspector
 
                         if (start < end)
                         {
-                            if (button_start.Text.ToLower() != "stop see magic!" && button_start.Text.ToLower() != "preparing magic!")
+                            if (button_start.Text.ToLower() != "stop" && button_start.Text.ToLower() != "preparing")
                             {
                                 ___Is_Visible(false);
-                                button_start.Text = "STOP SEE MAGIC!";
+                                button_start.Text = "STOP";
                                 __timer_count = 10;
                                 label_timer_count.Text = __timer_count.ToString();
                                 __timer_count = 9;
@@ -485,7 +625,7 @@ namespace Inspector
                             else
                             {
                                 ___Is_Visible(true);
-                                button_start.Text = "SEE MAGIC!";
+                                button_start.Text = "START";
                                 __timer_count = 10;
                                 label_timer_count.Visible = false;
                                 timer_start.Stop();
@@ -522,29 +662,48 @@ namespace Inspector
         private void timer_start_Tick(object sender, EventArgs e)
         {
             label_timer_count.Text = __timer_count--.ToString();
-            if (label_timer_count.Text == "9")
+            if (label_timer_count.Text == "-1")
             {
-                panel_start.Visible = false;
+                label_timer_count.Text = "";
+                button_start.Text = "START";
+                __timer_count = 10;
+                label_timer_count.Visible = false;
+                timer_start.Stop();
 
+                if (__brand_code == "FY")
+                {
+                    __url = "http://cs.ying168.bet";
+                }
+                else if (__brand_code == "TF")
+                {
+                    __url = "http://cshk.tianfa86.org";
+                }
+
+                __maximize = true;
                 __mainForm_handler = Application.OpenForms[0];
                 __mainForm_handler.Size = new Size(466, 468);
 
-                if (radioButton_fy.Checked)
+                if (__brand_code != __last_brand_code)
                 {
-                    webBrowser.Navigate("http://cs.ying168.bet/account/login");
+                    webBrowser.Navigate("javascript:void((function(){var a,b,c,e,f;f=0;a=document.cookie.split('; ');for(e=0;e<a.length&&a[e];e++){f++;for(b='.'+location.host;b;b=b.replace(/^(?:%5C.|[^%5C.]+)/,'')){for(c=location.pathname;c;c=c.replace(/.$/,'')){document.cookie=(a[e]+'; domain='+b+'; path='+c+'; expires='+new Date((new Date()).getTime()-1e11).toGMTString());}}}})())");
+                    panel_start.Visible = false;
+                    webBrowser.Navigate(__url + "/account/login");
+                    webBrowser.Visible = true;
                 }
-                else if (radioButton_tf.Checked)
+                else
                 {
-                    webBrowser.Navigate("http://cs.tianfa86.org/account/login");
+                    panel_start.Visible = false;
+                    ___FillUp();
+                    webBrowser.Visible = false;
+                    panel_status.Visible = true;
+                    webBrowser.Navigate(__url + "/flow/wagered2");
                 }
-
-                webBrowser.Visible = true;
             }
 
 
             if (label_timer_count.Text == "2")
             {
-                button_start.Text = "PREPARING MAGIC!";
+                button_start.Text = "PREPARING";
             }
         }
 
@@ -561,22 +720,25 @@ namespace Inspector
         {
             for (int i = 0; i <= richTextBox_players.Lines.Count() - 1; i++)
             {
-                if (!String.IsNullOrEmpty(richTextBox_players.Lines[i]))
+                if (!String.IsNullOrEmpty(richTextBox_players.Lines[i].Trim()))
                 {
                     if (i == 0)
                     {
-                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Ongoing");
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i].Trim(), "Ongoing");
+                        dataGridView_clone.Rows.Insert(0, i, richTextBox_players.Lines[i].Trim(), "Ongoing");
                     }
                     else
                     {
-                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i], "Pending");
+                        dataGridView_player.Rows.Insert(0, i, richTextBox_players.Lines[i].Trim(), "Pending");
+                        dataGridView_clone.Rows.Insert(0, i, richTextBox_players.Lines[i].Trim(), "Pending");
                     }
-
-                    __player += i + "|" + richTextBox_players.Lines[i] + "*|*";
+                    
+                    __player += i + "|" + richTextBox_players.Lines[i].Trim() + "*|*";
                 }
             }
 
             dataGridView_player.Sort(dataGridView_player.Columns["id"], ListSortDirection.Ascending);
+            dataGridView_clone.Sort(dataGridView_clone.Columns["id_clone"], ListSortDirection.Ascending);
         }
 
         private void webBrowser_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
@@ -587,13 +749,23 @@ namespace Inspector
                 {
                     try
                     {
-                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/account/login"))
+                        if (webBrowser.Url.ToString().Equals(__url + "/account/login"))
                         {
                             webBrowser.Visible = true;
                             webBrowser.BringToFront();
                             webBrowser.Document.Window.ScrollTo(0, 180);
-                            webBrowser.Document.GetElementById("csname").SetAttribute("value", "fycronos2");
-                            webBrowser.Document.GetElementById("cspwd").SetAttribute("value", "cronos12345");
+                            if (__brand_code == "FY")
+                            {
+                                webBrowser.Document.GetElementById("csname").SetAttribute("value", "fycronos2");
+                                webBrowser.Document.GetElementById("cspwd").SetAttribute("value", "cronos12345");
+                            }
+                            else if (__brand_code == "TF")
+                            {
+                                webBrowser.Document.GetElementById("csname").SetAttribute("value", "tfcronos2");
+                                webBrowser.Document.GetElementById("cspwd").SetAttribute("value", "cronos12345");
+                            }
+                            webBrowser.Document.GetElementById("csname").Enabled = false;
+                            webBrowser.Document.GetElementById("cspwd").Enabled = false;
                             webBrowser.Document.GetElementById("la").Enabled = false;
                             __la = webBrowser.Document.GetElementById("la").GetAttribute("value");
 
@@ -606,16 +778,16 @@ namespace Inspector
                             }
                         }
 
-                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/player/list") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/site/index") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/player/online") || webBrowser.Url.ToString().Equals("http://cs.ying168.bet/message/platform"))
+                        if (webBrowser.Url.ToString().Equals(__url + "/player/list") || webBrowser.Url.ToString().Equals(__url + "/site/index") || webBrowser.Url.ToString().Equals(__url + "/player/online") || webBrowser.Url.ToString().Equals(__url + "/message/platform"))
                         {
                             ___FillUp();
 
                             webBrowser.Visible = false;
                             panel_status.Visible = true;
-                            webBrowser.Navigate("http://cs.ying168.bet/flow/wagered2");
+                            webBrowser.Navigate(__url + "/flow/wagered2");
                         }
 
-                        if (webBrowser.Url.ToString().Equals("http://cs.ying168.bet/flow/wagered2"))
+                        if (webBrowser.Url.ToString().Equals(__url + "/flow/wagered2"))
                         {
                             __gp.Clear();
                             HtmlElement selectF8 = webBrowser.Document.GetElementById("gpid");
@@ -628,6 +800,7 @@ namespace Inspector
                             }
 
                             // ---------- PROCESS STARTS HERE
+                            __last_brand_code = __brand_code;
                             ___PROCESSAsync();
                         }
                     }
@@ -656,10 +829,15 @@ namespace Inspector
             }
             catch (Exception err)
             {
+                SendMyBot(err.ToString());
                 MessageBox.Show(err.ToString());
             }
-
+            
             // ---------- FINISH
+            label_player.Text = "-";
+            ___PROCESSS_clear();
+            panel_status.Visible = false;
+            panel_finish.Visible = true;
         }
 
         private async Task ___PROCESS_ifexistsAsync(string player)
@@ -708,10 +886,10 @@ namespace Inspector
                 {"data[3][name]", "iDisplayStart"},
                 {"data[3][value]", "0"},
                 {"data[4][name]", "iDisplayLength"},
-                {"data[4][value]", "100"}
+                {"data[4][value]", "5000"}
             };
 
-            byte[] result = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/player/listAjax2", "POST", reqparm);
+            byte[] result = await wc.UploadValuesTaskAsync(__url + "/player/listAjax2", "POST", reqparm);
             string responsebody = "";
             if (__la == "en")
             {
@@ -729,12 +907,28 @@ namespace Inspector
                 bool _is_found = false;
                 for (int i = 0; i < Convert.ToInt32(jt_total) ; i++)
                 {
-                    JToken jt_detect = jo.SelectToken("$.aaData[" + i + "][0]");
-                    JToken vip = jo.SelectToken("$.aaData[" + i + "][5]");
-                    __vip = Regex.Match(vip.ToString(), "<label(.*?)>(.*?)</label>").Groups[2].Value;
-                    string username = Regex.Match(jt_detect.ToString(), "username=\\\"(.*?)\\\"").Groups[1].Value;
+                    JToken _username = jo.SelectToken("$.aaData[" + i + "][0]");
+                    string username = "";
+                    try
+                    {
+                        username = Regex.Match(_username.ToString(), "username=\\\"(.*?)\\\"").Groups[1].Value;
+                    }
+                    catch (Exception err)
+                    {
+                        SendMyBot(_username.ToString());
+                    }
                     if (username == player)
                     {
+                        JToken _vip = jo.SelectToken("$.aaData[" + i + "][5]");
+                        if (_vip.ToString().ToLower().Contains("label"))
+                        {
+                            __vip = Regex.Match(_vip.ToString(), "<label(.*?)>(.*?)</label>").Groups[2].Value;
+                        }
+                        else
+                        {
+                            __vip = _vip.ToString();
+                        }
+
                         _is_found = true;
                         string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
                         foreach (string _player in _players)
@@ -745,6 +939,7 @@ namespace Inspector
                                 if (_players_inner[1] == player)
                                 {
                                     dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Ongoing";
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Ongoing";
                                     break;
                                 }
                             }
@@ -770,9 +965,15 @@ namespace Inspector
                                 dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                                 dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
 
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                __player_status += player + " - Not Found\n";
+
                                 try
                                 {
                                     dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
                                 }
                                 catch (Exception err)
                                 {
@@ -798,9 +999,15 @@ namespace Inspector
                             dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                             dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
 
+                            dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
+                            dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                            __player_status += player + " - Not Found\n";
+
                             try
                             {
                                 dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
                             }
                             catch (Exception err)
                             {
@@ -852,7 +1059,7 @@ namespace Inspector
                     {"data[4][name]", "iDisplayLength"},
                     {"data[4][value]", "1"}
                 };
-                byte[] result_gettotal_bet = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/flow/wageredAjax2", "POST", reqparm);
+                byte[] result_gettotal_bet = await wc.UploadValuesTaskAsync(__url + "/flow/wageredAjax2", "POST", reqparm);
                 string responsebody_gettotatal_bet = Encoding.UTF8.GetString(result_gettotal_bet);
                 var deserializeObject_gettotal_bet = JsonConvert.DeserializeObject(responsebody_gettotatal_bet);
                 JObject jo_gettotal_bet = JObject.Parse(deserializeObject_gettotal_bet.ToString());
@@ -900,7 +1107,7 @@ namespace Inspector
                 {"data[4][name]", "iDisplayLength"},
                 {"data[4][value]", "1"}
             };
-            byte[] result_gettotal = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/flow/wageredAjax2", "POST", reqparm1);
+            byte[] result_gettotal = await wc.UploadValuesTaskAsync(__url + "/flow/wageredAjax2", "POST", reqparm1);
             string responsebody_gettotatal = Encoding.UTF8.GetString(result_gettotal);
             var deserializeObject_gettotal = JsonConvert.DeserializeObject(responsebody_gettotatal);
             JObject jo_gettotal = JObject.Parse(deserializeObject_gettotal.ToString());
@@ -929,36 +1136,53 @@ namespace Inspector
                 if (__current_count == __gp.Count)
                 {
                     // leave blank
-                    ___PROCESS_excel(player);
-                    string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
-                    foreach (string _player in _players)
+                    if (!String.IsNullOrEmpty(__DATA.ToString()))
                     {
-                        if (!String.IsNullOrEmpty(_player))
+                        ___PROCESS_excel(player);
+                        string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                        foreach (string _player in _players)
                         {
-                            string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
-                            if (_players_inner[1] == player)
+                            if (!String.IsNullOrEmpty(_player))
                             {
-                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
-                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-                                break;
+                                string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                                if (_players_inner[1] == player)
+                                {
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
+
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
+
+                                    __player_status += player + " - OK\n";
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                    else
+                    {
+                        string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                        foreach (string _player in _players)
+                        {
+                            if (!String.IsNullOrEmpty(_player))
+                            {
+                                string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                                if (_players_inner[1] == player)
+                                {
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
+                                    dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
+                                    dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                    __player_status += player + " - No Data\n";
+                                    break;
+                                }
                             }
                         }
                     }
 
-                    label_page.Text = "-";
-                    label_total_record.Text = "-";
-                    label_gp_name.Text = "-";
-                    label_gp_count.Text = "-";
-                    label_total_bet_record.Text = "-";
-
-                    __total_page = 0;
-                    __current_count = 1;
-                    __total_bet_record_ = 1;
-                    __total_record = 0;
-                    __jo = null;
-                    __jo_count = null;
-                    __total_bet_record = null;
-                    __DATA.Clear();
+                    ___PROCESSS_clear();
                 }
                 else
                 {
@@ -1022,7 +1246,7 @@ namespace Inspector
                 {"data[4][value]", __length.ToString()}
             };
 
-            byte[] result = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/flow/wageredAjax2", "POST", reqparm);
+            byte[] result = await wc.UploadValuesTaskAsync(__url + "/flow/wageredAjax2", "POST", reqparm);
             string responsebody = Encoding.UTF8.GetString(result);
             var deserializeObject = JsonConvert.DeserializeObject(responsebody);
             __jo = JObject.Parse(deserializeObject.ToString());
@@ -1154,36 +1378,53 @@ namespace Inspector
             if (__current_count == __gp.Count)
             {
                 // leave blank
-                ___PROCESS_excel(player);
-                string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
-                foreach (string _player in _players)
+                if (!String.IsNullOrEmpty(__DATA.ToString()))
                 {
-                    if (!String.IsNullOrEmpty(_player))
+                    ___PROCESS_excel(player);
+                    string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                    foreach (string _player in _players)
                     {
-                        string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
-                        if (_players_inner[1] == player)
+                        if (!String.IsNullOrEmpty(_player))
                         {
-                            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
-                            dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-                            break;
+                            string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                            if (_players_inner[1] == player)
+                            {
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
+
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
+
+                                __player_status += player + " - OK\n";
+                                break;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    string[] _players = __player.Split(new string[] { "*|*" }, StringSplitOptions.None);
+                    foreach (string _player in _players)
+                    {
+                        if (!String.IsNullOrEmpty(_player))
+                        {
+                            string[] _players_inner = _player.Split(new string[] { "|" }, StringSplitOptions.None);
+                            if (_players_inner[1] == player)
+                            {
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
+                                dataGridView_player.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
+                                dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                __player_status += player + " - No Data\n";
+                                break;
+                            }
                         }
                     }
                 }
 
-                label_page.Text = "-";
-                label_total_record.Text = "-";
-                label_gp_name.Text = "-";
-                label_gp_count.Text = "-";
-                label_total_bet_record.Text = "-";
-
-                __total_page = 0;
-                __current_count = 1;
-                __total_bet_record_ = 1;
-                __total_record = 0;
-                __jo = null;
-                __jo_count = null;
-                __total_bet_record = null;
-                __DATA.Clear();
+                ___PROCESSS_clear();
             }
             else
             {
@@ -1241,7 +1482,7 @@ namespace Inspector
                 {"data[4][value]", __length.ToString()}
             };
 
-            byte[] result = await wc.UploadValuesTaskAsync("http://cs.ying168.bet/flow/wageredAjax2", "POST", reqparm);
+            byte[] result = await wc.UploadValuesTaskAsync(__url + "/flow/wageredAjax2", "POST", reqparm);
             string responsebody = Encoding.UTF8.GetString(result);
             var deserializeObject = JsonConvert.DeserializeObject(responsebody);
             __jo = JObject.Parse(deserializeObject.ToString());
@@ -1263,13 +1504,13 @@ namespace Inspector
                 Directory.CreateDirectory(desktop_path + "\\Inspector\\" + __brand_code);
             }
 
-            if (!Directory.Exists(desktop_path + "\\Inspector\\FY\\" + datetime))
+            if (!Directory.Exists(desktop_path + "\\Inspector\\" + __brand_code + "\\" + datetime))
             {
-                Directory.CreateDirectory(desktop_path + "\\Inspector\\FY\\" + datetime);
+                Directory.CreateDirectory(desktop_path + "\\Inspector\\" + __brand_code + "\\" + datetime);
             }
 
-            string path = desktop_path + "\\Inspector\\FY\\" + datetime + "\\" + dateTimePicker_start.Text.Substring(0, 10) + "__" + dateTimePicker_end.Text.Substring(0, 10) + "___" + player + ".xlsx";
-            string path_text = desktop_path + "\\Inspector\\FY\\" + datetime + "\\" + dateTimePicker_start.Text.Substring(0, 10) + "__" + dateTimePicker_end.Text.Substring(0, 10) + "___" + player + ".txt";
+            string path = desktop_path + "\\Inspector\\" + __brand_code + "\\" + datetime + "\\" + dateTimePicker_start.Text.Substring(0, 10) + "_" + dateTimePicker_start.Text.Substring(11, 8).Replace(":", "").Trim() + "__" + dateTimePicker_end.Text.Substring(0, 10) + "_" + dateTimePicker_end.Text.Substring(11, 8).Replace(":", "").Trim() + "___" + player + ".xlsx";
+            string path_text = desktop_path + "\\Inspector\\" + __brand_code + "\\" + datetime + "\\" + dateTimePicker_start.Text.Substring(0, 10) + "__" + dateTimePicker_end.Text.Substring(0, 10) + "___" + player + ".txt";
             if (File.Exists(path))
             {
                 File.Delete(path);
@@ -1306,7 +1547,14 @@ namespace Inspector
 
                     if (!string.IsNullOrEmpty(firstCellValue))
                     {
-                        row.Interior.Color = Color.FromArgb(222, 30, 112);
+                        if (__brand_code == "FY")
+                        {
+                            row.Interior.Color = Color.FromArgb(222, 30, 112);
+                        }
+                        else if (__brand_code == "TF")
+                        {
+                            row.Interior.Color = Color.FromArgb(154, 0, 0);
+                        }
                         row.Font.Color = Color.FromArgb(255, 255, 255);
                         row.Font.Bold = true;
                         row.Font.Size = 12;
@@ -1330,6 +1578,68 @@ namespace Inspector
             if (File.Exists(path_text))
             {
                 File.Delete(path_text);
+            }
+        }
+
+        private void ___PROCESSS_clear()
+        {
+            label_page.Text = "-";
+            label_total_record.Text = "-";
+            label_gp_name.Text = "-";
+            label_gp_count.Text = "-";
+            label_total_bet_record.Text = "-";
+
+            __total_page = 0;
+            __current_count = 1;
+            __total_bet_record_ = 1;
+            __total_record = 0;
+            __jo = null;
+            __jo_count = null;
+            __total_bet_record = null;
+            __DATA.Clear();
+        }
+
+        private void button_exit_Click(object sender, EventArgs e)
+        {
+            _dr = MessageBox.Show("Exit the program?", __app, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (_dr == DialogResult.Yes)
+            {
+                __is_close = false;
+                Environment.Exit(0);
+            }
+        }
+
+        private void button_retry_Click(object sender, EventArgs e)
+        {
+            __maximize = false;
+            __mainForm_handler = Application.OpenForms[0];
+            __mainForm_handler.Size = new Size(466, 238);
+
+            __player = "";
+            __gp.Clear();
+            dataGridView_player.Rows.Clear();
+            dataGridView_player.ClearSelection();
+            dataGridView_clone.Rows.Clear();
+            dataGridView_clone.ClearSelection();
+            panel_finish.Visible = false;
+            panel_start.Visible = true;
+            ___Is_Visible(true);
+            __player_status = "";
+            ___PROCESSS_clear();
+        }
+
+        private void timer_size_Tick(object sender, EventArgs e)
+        {
+            if (__maximize)
+            {
+                __mainForm_handler = Application.OpenForms[0];
+                __mainForm_handler.Size = new Size(466, 468);
+            }
+            else
+            {
+                __mainForm_handler = Application.OpenForms[0];
+                __mainForm_handler.Size = new Size(466, 238);
             }
         }
     }

@@ -113,5 +113,11 @@
   <ItemGroup>
     <None Include="Resources\close.png" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\close_inner.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\retry.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

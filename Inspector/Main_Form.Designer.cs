@@ -34,6 +34,11 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             this.panel_header = new System.Windows.Forms.Panel();
             this.pictureBox_header = new System.Windows.Forms.PictureBox();
@@ -54,8 +59,6 @@
             this.label_timer_count = new System.Windows.Forms.Label();
             this.dateTimePicker_end = new System.Windows.Forms.DateTimePicker();
             this.dateTimePicker_start = new System.Windows.Forms.DateTimePicker();
-            this.label_start_fy = new System.Windows.Forms.Label();
-            this.label_end_fy = new System.Windows.Forms.Label();
             this.button_start = new System.Windows.Forms.Button();
             this.richTextBox_players = new System.Windows.Forms.RichTextBox();
             this.label_select_player = new System.Windows.Forms.Label();
@@ -83,6 +86,17 @@
             this.label_page_01 = new System.Windows.Forms.Label();
             this.label_total_record_01 = new System.Windows.Forms.Label();
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.panel_finish = new System.Windows.Forms.Panel();
+            this.button_exit = new System.Windows.Forms.Button();
+            this.button_retry = new System.Windows.Forms.Button();
+            this.label_finish = new System.Windows.Forms.Label();
+            this.dataGridView_clone = new System.Windows.Forms.DataGridView();
+            this.id_clone = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dataGridViewTextBoxColumn3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.timer_size = new System.Windows.Forms.Timer(this.components);
             this.panel_header.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_header)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_minimize)).BeginInit();
@@ -93,6 +107,10 @@
             this.panel_status.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_player)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).BeginInit();
+            this.panel4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.panel_finish.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_clone)).BeginInit();
             this.SuspendLayout();
             // 
             // panel_header
@@ -168,6 +186,7 @@
             // 
             // panel2
             // 
+            this.panel2.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.panel2.BackColor = System.Drawing.Color.White;
             this.panel2.Location = new System.Drawing.Point(309, 462);
             this.panel2.Name = "panel2";
@@ -231,8 +250,6 @@
             this.panel_start.Controls.Add(this.label_timer_count);
             this.panel_start.Controls.Add(this.dateTimePicker_end);
             this.panel_start.Controls.Add(this.dateTimePicker_start);
-            this.panel_start.Controls.Add(this.label_start_fy);
-            this.panel_start.Controls.Add(this.label_end_fy);
             this.panel_start.Controls.Add(this.button_start);
             this.panel_start.Controls.Add(this.richTextBox_players);
             this.panel_start.Controls.Add(this.label_select_player);
@@ -243,20 +260,22 @@
             this.panel_start.Name = "panel_start";
             this.panel_start.Size = new System.Drawing.Size(443, 178);
             this.panel_start.TabIndex = 13;
+            this.panel_start.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_start_MouseDown);
             // 
             // label_timer_count
             // 
             this.label_timer_count.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_timer_count.Location = new System.Drawing.Point(266, 65);
+            this.label_timer_count.Location = new System.Drawing.Point(265, 65);
             this.label_timer_count.Name = "label_timer_count";
             this.label_timer_count.Size = new System.Drawing.Size(173, 51);
             this.label_timer_count.TabIndex = 15;
             this.label_timer_count.TextAlign = System.Drawing.ContentAlignment.BottomCenter;
+            this.label_timer_count.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_timer_count_MouseDown);
             // 
             // dateTimePicker_end
             // 
             this.dateTimePicker_end.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_end.Location = new System.Drawing.Point(265, 41);
+            this.dateTimePicker_end.Location = new System.Drawing.Point(264, 41);
             this.dateTimePicker_end.Name = "dateTimePicker_end";
             this.dateTimePicker_end.Size = new System.Drawing.Size(175, 21);
             this.dateTimePicker_end.TabIndex = 21;
@@ -264,30 +283,10 @@
             // dateTimePicker_start
             // 
             this.dateTimePicker_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.dateTimePicker_start.Location = new System.Drawing.Point(266, 14);
+            this.dateTimePicker_start.Location = new System.Drawing.Point(265, 14);
             this.dateTimePicker_start.Name = "dateTimePicker_start";
             this.dateTimePicker_start.Size = new System.Drawing.Size(174, 21);
             this.dateTimePicker_start.TabIndex = 18;
-            // 
-            // label_start_fy
-            // 
-            this.label_start_fy.AutoSize = true;
-            this.label_start_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_start_fy.Location = new System.Drawing.Point(179, 16);
-            this.label_start_fy.Name = "label_start_fy";
-            this.label_start_fy.Size = new System.Drawing.Size(86, 20);
-            this.label_start_fy.TabIndex = 19;
-            this.label_start_fy.Text = "Start Time:";
-            // 
-            // label_end_fy
-            // 
-            this.label_end_fy.AutoSize = true;
-            this.label_end_fy.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F);
-            this.label_end_fy.Location = new System.Drawing.Point(179, 42);
-            this.label_end_fy.Name = "label_end_fy";
-            this.label_end_fy.Size = new System.Drawing.Size(80, 20);
-            this.label_end_fy.TabIndex = 20;
-            this.label_end_fy.Text = "End Time:";
             // 
             // button_start
             // 
@@ -295,11 +294,11 @@
             this.button_start.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.button_start.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.button_start.ForeColor = System.Drawing.Color.Black;
-            this.button_start.Location = new System.Drawing.Point(265, 119);
+            this.button_start.Location = new System.Drawing.Point(264, 120);
             this.button_start.Name = "button_start";
             this.button_start.Size = new System.Drawing.Size(174, 37);
             this.button_start.TabIndex = 17;
-            this.button_start.Text = "SEE MAGIC!";
+            this.button_start.Text = "START";
             this.button_start.UseVisualStyleBackColor = false;
             this.button_start.Click += new System.EventHandler(this.button_start_Click);
             // 
@@ -310,7 +309,7 @@
             this.richTextBox_players.Name = "richTextBox_players";
             this.richTextBox_players.Size = new System.Drawing.Size(90, 113);
             this.richTextBox_players.TabIndex = 16;
-            this.richTextBox_players.Text = "yugaoquan11\nlhk139\nasdasdsa\ndfdfd\n";
+            this.richTextBox_players.Text = "";
             this.richTextBox_players.MouseEnter += new System.EventHandler(this.richTextBox_players_MouseEnter);
             // 
             // label_select_player
@@ -322,6 +321,7 @@
             this.label_select_player.Size = new System.Drawing.Size(68, 20);
             this.label_select_player.TabIndex = 15;
             this.label_select_player.Text = "Player/s:";
+            this.label_select_player.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_select_player_MouseDown);
             // 
             // radioButton_tf
             // 
@@ -356,6 +356,7 @@
             this.label_select_brand.Size = new System.Drawing.Size(56, 20);
             this.label_select_brand.TabIndex = 12;
             this.label_select_brand.Text = "Brand:";
+            this.label_select_brand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_select_brand_MouseDown);
             // 
             // webBrowser
             // 
@@ -393,6 +394,7 @@
             this.panel_status.Size = new System.Drawing.Size(449, 403);
             this.panel_status.TabIndex = 51;
             this.panel_status.Visible = false;
+            this.panel_status.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_status_MouseDown);
             // 
             // dataGridView_player
             // 
@@ -425,7 +427,7 @@
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.White;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
             this.dataGridView_player.DefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView_player.Location = new System.Drawing.Point(56, 274);
+            this.dataGridView_player.Location = new System.Drawing.Point(55, 274);
             this.dataGridView_player.MultiSelect = false;
             this.dataGridView_player.Name = "dataGridView_player";
             this.dataGridView_player.ReadOnly = true;
@@ -506,6 +508,7 @@
             this.label_total_bet_record.Size = new System.Drawing.Size(163, 18);
             this.label_total_bet_record.TabIndex = 59;
             this.label_total_bet_record.Text = "-";
+            this.label_total_bet_record.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_total_bet_record_MouseDown);
             // 
             // label_gp_count
             // 
@@ -515,6 +518,7 @@
             this.label_gp_count.Size = new System.Drawing.Size(163, 18);
             this.label_gp_count.TabIndex = 57;
             this.label_gp_count.Text = "-";
+            this.label_gp_count.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_gp_count_MouseDown);
             // 
             // label_gp_count_01
             // 
@@ -525,6 +529,7 @@
             this.label_gp_count_01.Size = new System.Drawing.Size(78, 18);
             this.label_gp_count_01.TabIndex = 58;
             this.label_gp_count_01.Text = "GP Count:";
+            this.label_gp_count_01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_gp_count_01_MouseDown);
             // 
             // label_gp_name
             // 
@@ -534,6 +539,7 @@
             this.label_gp_name.Size = new System.Drawing.Size(163, 18);
             this.label_gp_name.TabIndex = 55;
             this.label_gp_name.Text = "-";
+            this.label_gp_name.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_gp_name_MouseDown);
             // 
             // label_gp_name_01
             // 
@@ -544,6 +550,7 @@
             this.label_gp_name_01.Size = new System.Drawing.Size(78, 18);
             this.label_gp_name_01.TabIndex = 56;
             this.label_gp_name_01.Text = "GP Name:";
+            this.label_gp_name_01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_gp_name_01_MouseDown);
             // 
             // label_total_record
             // 
@@ -553,6 +560,7 @@
             this.label_total_record.Size = new System.Drawing.Size(163, 18);
             this.label_total_record.TabIndex = 51;
             this.label_total_record.Text = "-";
+            this.label_total_record.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_total_record_MouseDown);
             // 
             // label_page
             // 
@@ -562,6 +570,7 @@
             this.label_page.Size = new System.Drawing.Size(162, 18);
             this.label_page.TabIndex = 52;
             this.label_page.Text = "-";
+            this.label_page.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_page_MouseDown);
             // 
             // label_page_01
             // 
@@ -572,6 +581,7 @@
             this.label_page_01.Size = new System.Drawing.Size(46, 18);
             this.label_page_01.TabIndex = 54;
             this.label_page_01.Text = "Page:";
+            this.label_page_01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_page_01_MouseDown);
             // 
             // label_total_record_01
             // 
@@ -582,12 +592,158 @@
             this.label_total_record_01.Size = new System.Drawing.Size(98, 18);
             this.label_total_record_01.TabIndex = 53;
             this.label_total_record_01.Text = "Total Record:";
+            this.label_total_record_01.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_total_record_01_MouseDown);
             // 
             // imageList1
             // 
             this.imageList1.ColorDepth = System.Windows.Forms.ColorDepth.Depth8Bit;
             this.imageList1.ImageSize = new System.Drawing.Size(16, 16);
             this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // panel4
+            // 
+            this.panel4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(16)))), ((int)(((byte)(90)))), ((int)(((byte)(101)))));
+            this.panel4.Controls.Add(this.pictureBox1);
+            this.panel4.Location = new System.Drawing.Point(-3, 427);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(468, 457);
+            this.panel4.TabIndex = 0;
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.ErrorImage = null;
+            this.pictureBox1.Image = global::Inspector.Properties.Resources.landing;
+            this.pictureBox1.Location = new System.Drawing.Point(183, 169);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(111, 113);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            // 
+            // panel_finish
+            // 
+            this.panel_finish.Controls.Add(this.button_exit);
+            this.panel_finish.Controls.Add(this.button_retry);
+            this.panel_finish.Controls.Add(this.label_finish);
+            this.panel_finish.Controls.Add(this.dataGridView_clone);
+            this.panel_finish.Controls.Add(this.panel4);
+            this.panel_finish.Location = new System.Drawing.Point(9, 53);
+            this.panel_finish.Name = "panel_finish";
+            this.panel_finish.Size = new System.Drawing.Size(449, 403);
+            this.panel_finish.TabIndex = 52;
+            this.panel_finish.Visible = false;
+            this.panel_finish.MouseDown += new System.Windows.Forms.MouseEventHandler(this.panel_finish_MouseDown);
+            // 
+            // button_exit
+            // 
+            this.button_exit.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button_exit.Image = global::Inspector.Properties.Resources.close_inner;
+            this.button_exit.Location = new System.Drawing.Point(235, 227);
+            this.button_exit.Name = "button_exit";
+            this.button_exit.Size = new System.Drawing.Size(75, 33);
+            this.button_exit.TabIndex = 68;
+            this.button_exit.UseVisualStyleBackColor = true;
+            this.button_exit.Click += new System.EventHandler(this.button_exit_Click);
+            // 
+            // button_retry
+            // 
+            this.button_retry.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.button_retry.Image = global::Inspector.Properties.Resources.retry;
+            this.button_retry.Location = new System.Drawing.Point(139, 227);
+            this.button_retry.Name = "button_retry";
+            this.button_retry.Size = new System.Drawing.Size(75, 33);
+            this.button_retry.TabIndex = 67;
+            this.button_retry.UseVisualStyleBackColor = true;
+            this.button_retry.Click += new System.EventHandler(this.button_retry_Click);
+            // 
+            // label_finish
+            // 
+            this.label_finish.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label_finish.Location = new System.Drawing.Point(0, 101);
+            this.label_finish.Name = "label_finish";
+            this.label_finish.Size = new System.Drawing.Size(449, 35);
+            this.label_finish.TabIndex = 66;
+            this.label_finish.Text = "COMPLETED!";
+            this.label_finish.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_finish.MouseDown += new System.Windows.Forms.MouseEventHandler(this.label_finish_MouseDown);
+            // 
+            // dataGridView_clone
+            // 
+            this.dataGridView_clone.AllowUserToAddRows = false;
+            this.dataGridView_clone.AllowUserToDeleteRows = false;
+            this.dataGridView_clone.AllowUserToResizeColumns = false;
+            this.dataGridView_clone.AllowUserToResizeRows = false;
+            this.dataGridView_clone.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dataGridView_clone.BackgroundColor = System.Drawing.Color.White;
+            this.dataGridView_clone.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F);
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(0, 2, 0, 2);
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_clone.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.dataGridView_clone.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView_clone.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.id_clone,
+            this.dataGridViewTextBoxColumn2,
+            this.dataGridViewTextBoxColumn3});
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.Color.Gray;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.Color.White;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridView_clone.DefaultCellStyle = dataGridViewCellStyle9;
+            this.dataGridView_clone.Location = new System.Drawing.Point(55, 274);
+            this.dataGridView_clone.MultiSelect = false;
+            this.dataGridView_clone.Name = "dataGridView_clone";
+            this.dataGridView_clone.ReadOnly = true;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView_clone.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
+            this.dataGridView_clone.RowHeadersVisible = false;
+            this.dataGridView_clone.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dataGridView_clone.Size = new System.Drawing.Size(339, 105);
+            this.dataGridView_clone.TabIndex = 65;
+            // 
+            // id_clone
+            // 
+            this.id_clone.HeaderText = "ID";
+            this.id_clone.Name = "id_clone";
+            this.id_clone.ReadOnly = true;
+            this.id_clone.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.id_clone.Visible = false;
+            // 
+            // dataGridViewTextBoxColumn2
+            // 
+            dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn2.DefaultCellStyle = dataGridViewCellStyle7;
+            this.dataGridViewTextBoxColumn2.HeaderText = "Player";
+            this.dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
+            this.dataGridViewTextBoxColumn2.ReadOnly = true;
+            this.dataGridViewTextBoxColumn2.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // dataGridViewTextBoxColumn3
+            // 
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle8;
+            this.dataGridViewTextBoxColumn3.HeaderText = "Status";
+            this.dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
+            this.dataGridViewTextBoxColumn3.ReadOnly = true;
+            this.dataGridViewTextBoxColumn3.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            // 
+            // timer_size
+            // 
+            this.timer_size.Tick += new System.EventHandler(this.timer_size_Tick);
             // 
             // Main_Form
             // 
@@ -602,6 +758,7 @@
             this.Controls.Add(this.panel_header);
             this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.panel_status);
+            this.Controls.Add(this.panel_finish);
             this.ForeColor = System.Drawing.Color.White;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -610,6 +767,7 @@
             this.Text = "Inspector";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Main_Form_FormClosing);
             this.Load += new System.EventHandler(this.Main_Form_Load);
+            this.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Main_Form_MouseDown);
             this.panel_header.ResumeLayout(false);
             this.panel_header.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_header)).EndInit();
@@ -623,6 +781,10 @@
             this.panel_status.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_player)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox_loader)).EndInit();
+            this.panel4.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.panel_finish.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView_clone)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -656,8 +818,6 @@
         private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.DateTimePicker dateTimePicker_end;
         private System.Windows.Forms.DateTimePicker dateTimePicker_start;
-        private System.Windows.Forms.Label label_start_fy;
-        private System.Windows.Forms.Label label_end_fy;
         private System.Windows.Forms.Timer timer_start;
         private System.Windows.Forms.Label label_timer_count;
         private System.Windows.Forms.Panel panel_status;
@@ -678,5 +838,16 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn id;
         private System.Windows.Forms.DataGridViewTextBoxColumn player;
         private System.Windows.Forms.DataGridViewTextBoxColumn status;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Panel panel_finish;
+        private System.Windows.Forms.DataGridView dataGridView_clone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn id_clone;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
+        private System.Windows.Forms.Label label_finish;
+        private System.Windows.Forms.Button button_exit;
+        private System.Windows.Forms.Button button_retry;
+        private System.Windows.Forms.Timer timer_size;
     }
 }
