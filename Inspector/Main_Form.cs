@@ -38,6 +38,7 @@ namespace Inspector
         private string __la = "";
         private string __player = "";
         private string __vip = "";
+        private string __player_status = "";
         List<String> __gp = new List<String>();
         StringBuilder __DATA = new StringBuilder();
         JObject __jo;
@@ -478,7 +479,7 @@ namespace Inspector
                 string urlString = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}";
                 string apiToken = "772918363:AAHn2ufmP3ocLEilQ1V-IHcqYMcSuFJHx5g";
                 string chatId = "@allandrake";
-                string text = "-----" + __app + "-----%0A%0AIP:%20Reports Team PC%0ALocation:%20Robinsons Summit%0ADate%20and%20Time:%20[" + datetime + "]%0AMessage:%20" + message;
+                string text = "-----" + __brand_code + " " + __app + "-----%0A%0ADate%20and%20Time:%20[" + datetime + "]%0ATotal: " + richTextBox_players.Lines.Count() + "\nList:\n" + message;
                 urlString = String.Format(urlString, apiToken, chatId, text);
                 WebRequest request = WebRequest.Create(urlString);
                 Stream rs = request.GetResponse().GetResponseStream();
@@ -500,7 +501,7 @@ namespace Inspector
                     string urlString = "https://api.telegram.org/bot{0}/sendMessage?chat_id={1}&text={2}";
                     string apiToken = "772918363:AAHn2ufmP3ocLEilQ1V-IHcqYMcSuFJHx5g";
                     string chatId = "@allandrake";
-                    string text = "-----" + __app + "-----%0A%0AIP:%20Reports Team PC%0ALocation:%20Robinsons Summit%0ADate%20and%20Time:%20[" + datetime + "]%0AMessage:%20" + message;
+                    string text = "-----" + __brand_code + " " + __app + "-----%0A%0ADate%20and%20Time:%20[" + datetime + "]%0ATotal: " + richTextBox_players.Lines.Count() + "\nList:\n" + message;
                     urlString = String.Format(urlString, apiToken, chatId, text);
                     WebRequest request = WebRequest.Create(urlString);
                     Stream rs = request.GetResponse().GetResponseStream();
@@ -888,6 +889,9 @@ namespace Inspector
             ___PROCESSS_clear();
             panel_status.Visible = false;
             panel_finish.Visible = true;
+
+            SendMyBot(__player_status);
+            __player_status = "";
         }
 
         private async Task ___PROCESS_ifexistsAsync(string player)
@@ -1010,6 +1014,8 @@ namespace Inspector
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
                                 
+                                __player_status += player + " - Not Found\n";
+
                                 try
                                 {
                                     dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
@@ -1041,7 +1047,9 @@ namespace Inspector
 
                             dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "Not Found";
                             dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-                            
+
+                            __player_status += player + " - Not Found\n";
+
                             try
                             {
                                 dataGridView_player.Rows[Convert.ToInt32(_players_inner[0]) + 1].Cells[2].Value = "Ongoing";
@@ -1190,7 +1198,9 @@ namespace Inspector
 
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-                                    
+
+                                    __player_status += player + " - OK\n";
+
                                     break;
                                 }
                             }
@@ -1211,6 +1221,8 @@ namespace Inspector
 
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
                                     dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
+
+                                    __player_status += player + " - No Data\n";
                                     
                                     break;
                                 }
@@ -1430,7 +1442,9 @@ namespace Inspector
 
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "OK";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.Chartreuse, SelectionForeColor = Color.Chartreuse };
-                                
+
+                                __player_status += player + " - OK\n";
+
                                 break;
                             }
                         }
@@ -1451,7 +1465,9 @@ namespace Inspector
 
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Value = "No Data";
                                 dataGridView_clone.Rows[Convert.ToInt32(_players_inner[0])].Cells[2].Style = new DataGridViewCellStyle { ForeColor = Color.DarkRed, SelectionForeColor = Color.DarkRed };
-                                
+
+                                __player_status += player + " - No Data\n";
+
                                 break;
                             }
                         }
